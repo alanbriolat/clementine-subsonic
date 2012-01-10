@@ -5,6 +5,7 @@
 #include "core/player.h"
 #include "core/utilities.h"
 #include "ui/iconloader.h"
+#include "songcache/songcachebackend.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -22,6 +23,7 @@ SubsonicService::SubsonicService(InternetModel *parent)
     network_(new QNetworkAccessManager(this)),
     http_url_handler_(new SubsonicUrlHandler(this, this)),
     https_url_handler_(new SubsonicHttpsUrlHandler(this, this)),
+    cache_(new SongCacheBackend(parent->db_thread()->Worker())),
     login_state_(LoginState_OtherError),
     item_lookup_()
 {
@@ -33,6 +35,7 @@ SubsonicService::SubsonicService(InternetModel *parent)
 
 SubsonicService::~SubsonicService()
 {
+  delete cache_;
 }
 
 QStandardItem* SubsonicService::CreateRootItem()

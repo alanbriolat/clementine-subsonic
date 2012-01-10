@@ -9,6 +9,7 @@ class QXmlStreamReader;
 
 class SubsonicUrlHandler;
 class SubsonicHttpsUrlHandler;
+class SongCacheBackend;
 
 class SubsonicService : public InternetService
 {
@@ -93,6 +94,7 @@ class SubsonicService : public InternetService
   QNetworkAccessManager* network_;
   SubsonicUrlHandler* http_url_handler_;
   SubsonicHttpsUrlHandler* https_url_handler_;
+  SongCacheBackend* cache_;
 
   // Configuration
   QString server_;
